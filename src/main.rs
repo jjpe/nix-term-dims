@@ -12,18 +12,6 @@ fn main() -> Result<(), String> {
     Ok(())
 }
 
-fn report_term_dims(cli_args: &CliArgs, dims: &winsize) {
-    if cli_args.columns {
-        print!("{}", dims.ws_col);
-        if cli_args.rows {
-            print!(" {}", dims.ws_row);
-        }
-    } else if cli_args.rows {
-        print!("{}", dims.ws_row);
-    }
-    println!();
-}
-
 #[cfg(target_os = "linux")]
 fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
     let cpath = CString::from_str(tty_path).expect("Failed to init cpath");
@@ -64,6 +52,18 @@ fn get_term_dims(tty_fd: c_int) -> Result<winsize, &'static str> {
     } else {
         Ok(dims)
     }
+}
+
+fn report_term_dims(cli_args: &CliArgs, dims: &winsize) {
+    if cli_args.columns {
+        print!("{}", dims.ws_col);
+        if cli_args.rows {
+            print!(" {}", dims.ws_row);
+        }
+    } else if cli_args.rows {
+        print!("{}", dims.ws_row);
+    }
+    println!();
 }
 
 #[derive(clap::Parser)]
