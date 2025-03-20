@@ -1,6 +1,4 @@
 use clap::Parser;
-#[cfg(target_os = "macos")]
-use libc::O_EVTONLY;
 use libc::{c_int, ioctl, open, winsize, O_NONBLOCK, TIOCGWINSZ};
 use std::{ffi::CString, str::FromStr};
 
@@ -24,27 +22,16 @@ fn report_term_dims(cli_args: &CliArgs, dims: &winsize) {
     println!();
 }
 
-#[cfg(target_os = "linux")]
-#[rustfmt::skip]
 fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
-    let cpath =
-        CString::from_str(tty_path).expect("Failed to initialize cpath");
-    let tty_fd: c_int = unsafe { open(cpath.as_ptr(), O_NONBLOCK) };
-    if tty_fd < 0 {
-        Err(format!("Failed to open {tty_path}"))
+    let cpath = CString::from_str(tty_path).expect("Failed to init cpath");
+    let flags = if cfg!(target_os = "linux") {
+        libc::O_NONBLOCK // nonblocking (no events-only flag on Linux)
+    } else if cfg!(target_os = "macos") {
+        libc::O_EVTONLY | libc::O_NONBLOCK // events-only, nonblocking
     } else {
-        Ok(tty_fd)
-    }
-}
-
-#[cfg(target_os = "macos")]
-#[rustfmt::skip]
-fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
-    let cpath =
-        CString::from_str(tty_path).expect("Failed to initialize cpath");
-    let tty_fd: c_int = unsafe {
-        open(cpath.as_ptr(), O_EVTONLY | O_NONBLOCK) // events only, nonblocking
+        panic!("Unsupported OS")
     };
+    let tty_fd: c_int = unsafe { open(cpath.as_ptr(), flags) };
     if tty_fd < 0 {
         Err(format!("Failed to open {tty_path}"))
     } else {
