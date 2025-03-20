@@ -1,5 +1,7 @@
 use clap::Parser;
-use libc::{c_int, ioctl, open, winsize, O_EVTONLY, O_NONBLOCK, TIOCGWINSZ};
+#[cfg(target_os = "macos")]
+use libc::O_EVTONLY;
+use libc::{c_int, ioctl, open, winsize, O_NONBLOCK, TIOCGWINSZ};
 use std::{ffi::CString, str::FromStr};
 
 fn main() -> Result<(), String> {
@@ -27,10 +29,7 @@ fn report_term_dims(cli_args: &CliArgs, dims: &winsize) {
 fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
     let cpath =
         CString::from_str(tty_path).expect("Failed to initialize cpath");
-    let tty_fd: c_int = unsafe {
-        // libc::open(cpath.as_ptr(), O_EVTONLY | O_NONBLOCK)
-        todo!() // TODO: add Linux support for get_tty_fd()
-    };
+    let tty_fd: c_int = unsafe { open(cpath.as_ptr(), O_NONBLOCK) };
     if tty_fd < 0 {
         Err(format!("Failed to open {tty_path}"))
     } else {
