@@ -25,7 +25,6 @@ fn report_term_dims(cli_args: &CliArgs, dims: &winsize) {
 }
 
 #[cfg(target_os = "linux")]
-#[rustfmt::skip]
 fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
     let cpath = CString::from_str(tty_path).expect("Failed to init cpath");
     let tty_fd: c_int = unsafe { open(cpath.as_ptr(), O_NONBLOCK) };
@@ -37,7 +36,6 @@ fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
 }
 
 #[cfg(target_os = "macos")]
-#[rustfmt::skip]
 fn get_tty_fd(tty_path: &str) -> Result<c_int, String> {
     let cpath = CString::from_str(tty_path).expect("Failed to init cpath");
     let tty_fd: c_int = unsafe {
