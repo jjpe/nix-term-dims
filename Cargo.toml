@@ -1,5 +1,5 @@
 [package]
-name = "nix-terminal-dimensions"
+name = "nix-term-dims"
 version = "0.1.0"
 edition = "2024"
 authors = ["Joey Ezechiels"]
@@ -7,7 +7,6 @@ description = "A crate that uses ioctl to make it easy to query terminal dimensi
 license = "Apache-2.0"
 rust-version = "1.85.0"
 repository = "https://github.com/jjpe/nix-term-dimensions"
-default-run = "nix-term-dims"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive"] }

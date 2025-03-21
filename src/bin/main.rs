@@ -1,6 +1,6 @@
 use clap::Parser;
 use libc::{c_int, winsize};
-use nix_terminal_dimensions::{get_term_dims, get_tty_fd};
+use nix_term_dims::{get_term_dims, get_tty_fd};
 
 fn main() -> Result<(), String> {
     let cli_args = CliArgs::parse();
