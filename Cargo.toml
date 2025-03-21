@@ -2,7 +2,12 @@
 name = "nix-terminal-dimensions"
 version = "0.1.0"
 edition = "2024"
+default-run = "nix-term-dims"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive"] }
 libc = "0.2.171"
+
+[[bin]]
+name = "nix-term-dims"
+path = "src/bin/main.rs"
