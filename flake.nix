@@ -32,7 +32,8 @@
           buildInputs = [ ];
         };
         packages = {
-          default = nixpkgs.legacyPackages.${system}.callPackage ./. { };
+          default = pkgs.callPackage ./default.nix { };
+          buildInputs = [ ];
         };
       }
     );

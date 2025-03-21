@@ -1,7 +1,11 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs }:
+let
+  manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
+in
 pkgs.rustPlatform.buildRustPackage rec {
-  pname = "nix-term-dims";
-  version = "0.1.0";
+  pname = manifest.name;
+  version = manifest.version;
+  authors = manifest.authors;
   cargoLock.lockFile = ./Cargo.lock;
   src = pkgs.lib.cleanSource ./.;
 }
