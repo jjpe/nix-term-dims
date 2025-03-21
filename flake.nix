@@ -25,12 +25,12 @@
           ];
         };
       in
-        {
-          formatter = pkgs.nixfmt-rfc-style;
-          devShells = {
-            default = pkgs.callPackage ./shell.nix { };
-            buildInputs = [ ];
-          };
-        }
+      {
+        formatter = pkgs.nixfmt-rfc-style;
+        devShells = {
+          default = pkgs.callPackage ./shell.nix { };
+          buildInputs = [ ];
+        };
+      }
     );
 }
