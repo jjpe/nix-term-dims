@@ -1,5 +1,5 @@
 {
-  description = "A dev shell for nix-term-dimensions";
+  description = "A dev shell for nix-term-dims";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
