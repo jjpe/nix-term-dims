@@ -8,6 +8,7 @@ pkgs.mkShell {
     cargo-bloat
     cargo-crev # Review system for verifying security & quality of Cargo deps
     cargo-criterion # Benchmarker
+    cargo-deny
     cargo-edit
     # cargo-expand  # Rust macro expansion utility   TODO broken for now
     # cargo-make  # build tool on top of cargo
