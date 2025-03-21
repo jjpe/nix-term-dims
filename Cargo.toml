@@ -7,6 +7,7 @@ description = "A crate that uses ioctl to make it easy to query terminal dimensi
 license = "Apache-2.0"
 rust-version = "1.85.0"
 repository = "https://github.com/jjpe/nix-term-dims"
+default-run = "nix-term-dims"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive"] }
@@ -14,4 +15,8 @@ libc = "0.2.171"
 
 [[bin]]
 name = "nix-term-dims"
-path = "src/bin/main.rs"
+path = "src/bin/nix-term-dims.rs"
+
+[[bin]]
+name = "nix-prompt-helper"
+path = "src/bin/nix-prompt-helper.rs"
