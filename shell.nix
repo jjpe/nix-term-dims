@@ -3,6 +3,7 @@ let
   tag = "[shell.nix]";
 in
 pkgs.mkShell {
+  inputFrom = [ (pkgs.callPackage ./default.nix { }) ];
   buildInputs = with pkgs; [
     cargo-audit
     cargo-bloat
