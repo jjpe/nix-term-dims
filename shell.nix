@@ -40,9 +40,10 @@ pkgs.mkShell {
     wasm-pack # A tool to make WASM & Rust play nicely
   ];
 
-  shellHook = ''
-    export RUST_BACKTRACE=1
+  # dev shell env vars:
+  RUST_BACKTRACE = 1;
 
+  shellHook = ''
     >&2 echo "${tag} Executing 'cargo clean'..."
     cargo clean
   '';
