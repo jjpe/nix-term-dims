@@ -44,7 +44,7 @@ pkgs.mkShell {
   RUST_BACKTRACE = 1;
 
   shellHook = ''
-    >&2 echo "${tag} Executing 'cargo clean'..."
-    cargo clean
+    # >&2 echo "${tag} Executing 'cargo clean'..."
+    # cargo clean
   '';
 }
